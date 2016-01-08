@@ -29,10 +29,15 @@ trait Dao {
   implicit val ec: ExecutionContext
   import dbprofile.api._
 
-  val tables = new Tables {
+  lazy val tables = new Tables {
     override val profile = dbprofile
   }
-  lazy val DB: Database = Database.forConfig("h2mem1")
+
+  def createDDL(): Unit = {
+    val f = DB.run(tables.ruleMap.schema.create)
+    Await.result(f, 2 seconds)
+  }
+  def DB: Database
 
   def save(rule: Rule): Unit = {
     val f = DB.run(tables.ruleMap.insertOrUpdate(rule.fromQ, JsonHelper.toJson(rule.contentRules)))

@@ -9,6 +9,7 @@ val akkaVersion = "2.4.1"
 val sprayVersion = "1.3.3"
 
 libraryDependencies ++= Seq(
+  "org.json4s" %% "json4s-jackson" % "3.3.0",
   "org.webjars" % "json-editor" % "0.7.21",
   "io.spray" %% "spray-can" % sprayVersion,
   "io.spray" %% "spray-httpx" % sprayVersion,

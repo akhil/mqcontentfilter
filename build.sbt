@@ -9,6 +9,9 @@ val akkaVersion = "2.4.1"
 val sprayVersion = "1.3.3"
 
 libraryDependencies ++= Seq(
+  "org.webjars" % "json-editor" % "0.7.21",
+  "io.spray" %% "spray-can" % sprayVersion,
+  "io.spray" %% "spray-httpx" % sprayVersion,
   "io.spray" %% "spray-routing" % sprayVersion,
   "io.spray" %% "spray-servlet" % sprayVersion,
   "com.h2database" % "h2" % "1.4.190",

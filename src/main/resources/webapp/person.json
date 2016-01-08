@@ -1,0 +1,39 @@
+{
+  "title": "configuration",
+  "type": "object",
+  "id": "config",
+  "properties": {
+    "fromQ": {
+      "type": "string",
+      "title": "From MQ"
+    },
+    "criteria": {
+      "type": "array",
+      "format": "tabs",
+      "title": "Criteria",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "criteria",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "filter",
+            "format": "json",
+            "default": ""
+          },
+          "toQ": {
+            "type": "array",
+            "format": "table",
+            "title": "To Q",
+            "uniqueItems": true,
+            "items" : {
+              "title": "Q",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

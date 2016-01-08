@@ -18,21 +18,8 @@
 <div id='editor_holder'></div>
 
 <script>
-    // This is the starting value for the editor
-    // We will use this to seed the initial editor
-    // and to provide a "Restore to Default" button.
-    var starting_value = [
-        {
-            fromQ: "activemq:FOO.BAR",
-            criteria: [{
-                filter: "123",
-                toQ: ["456"]
-            }]
-        }
-    ];
-
     // Initialize the editor
-    var editor = new JSONEditor(document.getElementById('editor_holder'),{
+    var editor = new JSONEditor(document.getElementById('editor_holder'), {
         // Enable fetching schemas via ajax
         ajax: true,
         theme: 'html',
@@ -40,14 +27,14 @@
         // The schema for the editor
         schema: {
             type: "array",
-            title: "People",
+            title: "Rules",
             format: "tabs",
             items: {
                 title: "Criteria",
                 headerTemplate: "{{i}} - {{self.fromQ}}",
                 oneOf: [
                     {
-                        $ref: "person.json",
+                        $ref: "rule_schema.json",
                         title: "Subscription"
                     }
                 ]
@@ -55,7 +42,7 @@
         },
 
         // Seed the form with a starting value
-        startval: starting_value,
+        startval: { $ref: "rules" },
 
         // Disable additional properties
         no_additional_properties: true,
@@ -65,20 +52,20 @@
     });
 
     // Hook up the submit button to log to the console
-    document.getElementById('submit').addEventListener('click',function() {
+    document.getElementById('submit').addEventListener('click', function () {
         // Get the value from the editor
         console.log(editor.getValue());
     });
 
     // Hook up the Restore to Default button
-    document.getElementById('restore').addEventListener('click',function() {
+    document.getElementById('restore').addEventListener('click', function () {
         editor.setValue(starting_value);
     });
 
     // Hook up the enable/disable button
-    document.getElementById('enable_disable').addEventListener('click',function() {
+    document.getElementById('enable_disable').addEventListener('click', function () {
         // Enable form
-        if(!editor.isEnabled()) {
+        if (!editor.isEnabled()) {
             editor.enable();
         }
         // Disable form
@@ -89,14 +76,14 @@
 
     // Hook up the validation indicator to update its
     // status whenever the editor changes
-    editor.on('change',function() {
+    editor.on('change', function () {
         // Get an array of errors from the validator
         var errors = editor.validate();
 
         var indicator = document.getElementById('valid_indicator');
 
         // Not valid
-        if(errors.length) {
+        if (errors.length) {
             indicator.style.color = 'red';
             indicator.textContent = "not valid";
         }
